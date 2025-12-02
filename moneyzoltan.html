@@ -4,24 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Megtakarítási Célkövető</title>
-    <!-- Tailwind CSS -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
+   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Firebase Imports -->
+   
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- Firebase Configuration ---
-        // =======================================================================
-        // FONTOS: Cseréld le ezt a részt a saját Firebase konfigurációddal!
-        // (IMPORTANT: Paste your config here again)
-        // =======================================================================
+        
         const firebaseConfig = {
             apiKey: "AIzaSyBQKq1YggF3GjajZAmjHYtGmZk0ihPJwRs",
             authDomain: "moneyzoltan-68329.firebaseapp.com",
@@ -31,15 +27,15 @@
             appId: "1:969689374570:web:373adfc3bfd72b5df94f13",
             measurementId: "G-8QT0J3C8C1"
         };
-        // =======================================================================
+        
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-        // --- App State ---
+        
         let db, auth, userId, goalsCollection;
 
-        // --- DOM Elements ---
+        
         const goalsContainer = document.getElementById('goalsContainer');
         const newGoalForm = document.getElementById('newGoalForm');
         const loadingSpinner = document.getElementById('loadingSpinner');
@@ -48,7 +44,7 @@
         const errorMessage = document.getElementById('errorMessage');
         const tipsContainer = document.getElementById('tipsContainer');
 
-        // --- Icons (Inline SVGs) ---
+        
         const icons = {
             pie: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>`,
             shield: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
@@ -60,7 +56,7 @@
             bulb: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 16.5 8 4.5 4.5 0 0 0 12 3.5a4.5 4.5 0 0 0-4.5 4.5c0 1.55.8 2.85 2 3.59.81.48 1.45 1.15 1.59 2.41"></path></svg>`
         };
 
-        // --- Financial Tips Data ---
+       
         const financialTips = [
             {
                 title: "50/30/20 Szabály",
@@ -92,7 +88,7 @@
             }
         ];
 
-        // --- Utility Functions ---
+        
         function formatCurrency(amount) {
             return new Intl.NumberFormat('hu-HU', {
                 style: 'currency',
@@ -112,7 +108,7 @@
             }, 3000);
         }
 
-        // --- Render Functions ---
+        
         function renderTips() {
             tipsContainer.innerHTML = '';
             financialTips.forEach(tip => {
@@ -130,13 +126,13 @@
                 tipsContainer.appendChild(tipEl);
             });
             
-            // Render other static icons
+            
             document.getElementById('icon-plus').innerHTML = icons.plus;
             document.getElementById('icon-target').innerHTML = icons.target;
             document.getElementById('icon-bulb').innerHTML = icons.bulb;
         }
 
-        // --- Firebase Functions ---
+        
         async function initializeFirebase() {
             try {
                 if (firebaseConfig.apiKey === "YOUR_API_KEY_HERE") {
@@ -300,7 +296,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderTips(); // Render tips immediately!
+            renderTips(); 
             initializeFirebase();
             newGoalForm.addEventListener('submit', handleAddGoal);
         });
@@ -354,7 +350,7 @@
                 </form>
             </section>
 
-            <!-- Goals List -->
+            
             <section class="mb-8">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                     <div id="icon-target" class="w-5 h-5 mr-2 text-blue-600"></div> Céljaid
@@ -362,19 +358,19 @@
                 <div id="goalsContainer" class="space-y-4"></div>
             </section>
 
-            <!-- Financial Tips Section -->
+            
             <section>
                 <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                     <div id="icon-bulb" class="w-5 h-5 mr-2 text-yellow-500"></div> Pénzügyi Tudatosság
                 </h2>
                 <div id="tipsContainer" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <!-- Tips injected by JS -->
+                    
                 </div>
             </section>
         </main>
     </div>
     
-    <!-- Footer -->
+    
     <footer class="text-center text-gray-400 text-sm py-6">
         <p>&copy; 2025 Megtakarítási Célkövető</p>
     </footer>
