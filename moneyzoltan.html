@@ -10,8 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
     
     <!-- Firebase Imports -->
     <script type="module">
@@ -35,7 +33,6 @@
         };
         // =======================================================================
 
-        // --- Environment Variables & Fallbacks ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
@@ -51,32 +48,44 @@
         const errorMessage = document.getElementById('errorMessage');
         const tipsContainer = document.getElementById('tipsContainer');
 
-        // --- Financial Tips Data (Hungarian) ---
+        // --- Icons (Inline SVGs) ---
+        const icons = {
+            pie: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>`,
+            shield: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+            clock: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
+            coins: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="M7 6h1v4"></path><path d="m16.71 13.88.7.71-2.82 2.82"></path></svg>`,
+            trash: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>`,
+            plus: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>`,
+            target: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>`,
+            bulb: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 16.5 8 4.5 4.5 0 0 0 12 3.5a4.5 4.5 0 0 0-4.5 4.5c0 1.55.8 2.85 2 3.59.81.48 1.45 1.15 1.59 2.41"></path></svg>`
+        };
+
+        // --- Financial Tips Data ---
         const financialTips = [
             {
                 title: "50/30/20 Szabály",
-                icon: "pie-chart",
+                icon: icons.pie,
                 desc: "Oszd fel a bevételed: 50% szükségletekre (lakhatás, étel), 30% vágyakra (szórakozás), és 20% megtakarításra.",
                 color: "text-blue-600",
                 bg: "bg-blue-50"
             },
             {
                 title: "Vésztartalék",
-                icon: "shield-check",
+                icon: icons.shield,
                 desc: "Mielőtt nagy célokra gyűjtenél, legyen félretéve 3-6 havi megélhetési költséged váratlan helyzetekre.",
                 color: "text-red-600",
                 bg: "bg-red-50"
             },
             {
                 title: "30 Napos Szabály",
-                icon: "calendar-clock",
+                icon: icons.clock,
                 desc: "Ha valamit hirtelen meg akarsz venni, várj 30 napot. Ha még mindig kell, vedd meg. Így elkerülheted az impulzusvásárlást.",
                 color: "text-purple-600",
                 bg: "bg-purple-50"
             },
             {
                 title: "Fizess Magadnak Először",
-                icon: "coins",
+                icon: icons.coins,
                 desc: "Amint megkapod a fizetésed, azonnal tedd félre a megtakarítást, ne a hónap végén maradt pénzből próbálj gazdálkodni.",
                 color: "text-green-600",
                 bg: "bg-green-50"
@@ -84,7 +93,6 @@
         ];
 
         // --- Utility Functions ---
-        
         function formatCurrency(amount) {
             return new Intl.NumberFormat('hu-HU', {
                 style: 'currency',
@@ -104,8 +112,31 @@
             }, 3000);
         }
 
-        // --- Firebase Functions ---
+        // --- Render Functions ---
+        function renderTips() {
+            tipsContainer.innerHTML = '';
+            financialTips.forEach(tip => {
+                const tipEl = document.createElement('div');
+                tipEl.className = `${tip.bg} p-4 rounded-lg shadow-sm border border-gray-100`;
+                tipEl.innerHTML = `
+                    <div class="flex items-center mb-2">
+                        <div class="${tip.color} w-6 h-6 mr-3">
+                            ${tip.icon}
+                        </div>
+                        <h4 class="font-semibold text-gray-800">${tip.title}</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">${tip.desc}</p>
+                `;
+                tipsContainer.appendChild(tipEl);
+            });
+            
+            // Render other static icons
+            document.getElementById('icon-plus').innerHTML = icons.plus;
+            document.getElementById('icon-target').innerHTML = icons.target;
+            document.getElementById('icon-bulb').innerHTML = icons.bulb;
+        }
 
+        // --- Firebase Functions ---
         async function initializeFirebase() {
             try {
                 if (firebaseConfig.apiKey === "YOUR_API_KEY_HERE") {
@@ -155,7 +186,6 @@
                 renderGoals(goals);
                 loadingSpinner.classList.add('hidden');
                 appContent.classList.remove('hidden');
-                renderTips(); // Render tips after app loads
             }, (error) => {
                 console.error("Error listening to goals:", error);
                 showError("Hiba a célok betöltésekor. " + error.message);
@@ -241,7 +271,7 @@
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="text-xl font-semibold text-gray-800">${goalName}</h3>
                         <button data-delete-id="${id}" class="text-gray-400 hover:text-red-500 transition-colors">
-                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                            <div class="w-5 h-5">${icons.trash}</div>
                         </button>
                     </div>
                     <div class="mb-2">
@@ -260,9 +290,6 @@
                 `;
                 goalsContainer.appendChild(goalElement);
             });
-            
-            // Re-initialize icons
-            lucide.createIcons();
 
             goalsContainer.addEventListener('click', (e) => {
                 const deleteBtn = e.target.closest('button[data-delete-id]');
@@ -272,24 +299,8 @@
             });
         }
 
-        function renderTips() {
-            tipsContainer.innerHTML = '';
-            financialTips.forEach(tip => {
-                const tipEl = document.createElement('div');
-                tipEl.className = `${tip.bg} p-4 rounded-lg shadow-sm border border-gray-100`;
-                tipEl.innerHTML = `
-                    <div class="flex items-center mb-2">
-                        <i data-lucide="${tip.icon}" class="${tip.color} w-6 h-6 mr-3"></i>
-                        <h4 class="font-semibold text-gray-800">${tip.title}</h4>
-                    </div>
-                    <p class="text-sm text-gray-600 leading-relaxed">${tip.desc}</p>
-                `;
-                tipsContainer.appendChild(tipEl);
-            });
-            lucide.createIcons();
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
+            renderTips(); // Render tips immediately!
             initializeFirebase();
             newGoalForm.addEventListener('submit', handleAddGoal);
         });
@@ -321,7 +332,7 @@
             <section class="mb-6">
                 <form id="newGoalForm" class="bg-white p-5 rounded-lg shadow-md">
                     <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                        <i data-lucide="plus-circle" class="w-5 h-5 mr-2 text-blue-600"></i> Új cél hozzáadása
+                        <div id="icon-plus" class="w-5 h-5 mr-2 text-blue-600"></div> Új cél hozzáadása
                     </h2>
                     <div class="space-y-4">
                         <div>
@@ -346,7 +357,7 @@
             <!-- Goals List -->
             <section class="mb-8">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                    <i data-lucide="target" class="w-5 h-5 mr-2 text-blue-600"></i> Céljaid
+                    <div id="icon-target" class="w-5 h-5 mr-2 text-blue-600"></div> Céljaid
                 </h2>
                 <div id="goalsContainer" class="space-y-4"></div>
             </section>
@@ -354,7 +365,7 @@
             <!-- Financial Tips Section -->
             <section>
                 <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                    <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-yellow-500"></i> Pénzügyi Tudatosság
+                    <div id="icon-bulb" class="w-5 h-5 mr-2 text-yellow-500"></div> Pénzügyi Tudatosság
                 </h2>
                 <div id="tipsContainer" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <!-- Tips injected by JS -->
